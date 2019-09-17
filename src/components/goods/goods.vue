@@ -47,7 +47,7 @@
           </ul>
         </div>
         <!-- 购物车 -->
-        <shopcar :selectedFoods="seletedFoods"></shopcar>
+        <shopcar></shopcar>
     </div>
   </div> 
 </template>
@@ -82,18 +82,18 @@ export default {
    
   },
   computed:{
-    seletedFoods(){
-      //seletedFoods里面是所有被选中的食品的信息，里面包含被选的次数count
-      let seletedFoods = [];
-      this.goodsList.forEach((foodtype)=>{
-        foodtype.foods.forEach((food)=>{
-          if(food.count){
-            seletedFoods.push(food)
-          }
-        })
-      })
-      return seletedFoods
-    }
+    // seletedFoods(){
+    //   //seletedFoods里面是所有被选中的食品的信息，里面包含被选的次数count
+    //   let seletedFoods = [];
+    //   this.goodsList.forEach((foodtype)=>{
+    //     foodtype.foods.forEach((food)=>{
+    //       if(food.count){
+    //         seletedFoods.push(food)
+    //       }
+    //     })
+    //   })
+    //   return seletedFoods
+    // }
   },
   methods:{
     toDetail(name){

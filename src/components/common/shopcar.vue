@@ -22,16 +22,9 @@
   </div> 
 </template>
 <script>
+import { mapGetters } from 'vuex'
 export default {
   name : 'shopcar',
-  props:{
-    selectedFoods:{
-      type:Array,
-      default:function(){
-          return []
-      }
-    }
-  },
   data () {
     return {
       seller:{},
@@ -45,20 +38,7 @@ export default {
     })
   },
   computed:{
-    totalCount(){
-      let totalCount = 0;
-      this.selectedFoods.forEach((item)=>{
-        totalCount += item.count
-      })
-      return totalCount
-    },
-    totalPrice(){
-      let totalPrice = 0;
-      this.selectedFoods.forEach((item)=>{
-        totalPrice += item.count * item.price
-      })
-      return totalPrice
-    },
+    ...mapGetters(["totalPrice","totalCount"]),
     minPrice(){
       if(this.totalPrice === 0){
         return "￥"+this.seller.minPrice+"元起送"
@@ -70,9 +50,6 @@ export default {
       }
     },
   },
-  
-
-
 }
 </script>
 <style lang="scss" scoped>

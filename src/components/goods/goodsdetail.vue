@@ -17,7 +17,7 @@
           <span class="old" v-if="goods.oldPrice">￥{{ goods.oldPrice }}</span>
         </div>
         <!-- 加入购物车按钮 -->
-        <div class="car">
+        <div class="car" @click="add">
           <span class="text">加入购物车</span>
         </div>
       </div>
@@ -39,12 +39,14 @@
 import BScroll from 'better-scroll'
 import foodRatings from '../common/foodratings'
 import shopcar from '../common/shopcar'
+import { mapMutations } from 'vuex'
 export default {
   name : 'goodsdetail',
   components:{ foodRatings,shopcar },
   data () {
     return {
-      goods:{}
+      goods:{},
+      count:1
     };
   },
   created(){
@@ -67,6 +69,18 @@ export default {
         })
       })
     }) 
+  },
+  methods:{
+    ...mapMutations(["addFoodToCar"]),
+    add(){
+      let foodInfo = {
+        name:this.goods.name,
+        price: this.goods.price,
+        count:this.count
+      }
+      this.addFoodToCar(foodInfo)
+    }
+
   }
 }
 </script>

@@ -1,10 +1,10 @@
 <template>
     <div class="carcontrol">
       <transition>
-      <i class="icon-remove_circle_outline icon" v-if="food.count > 0" @click="decrease(food)"></i>                    
+      <i class="icon-remove_circle_outline icon" v-if="getCountById[food.name] > 0" @click="decrease"></i>                    
       </transition>
-      <span class="num" v-if="food.count > 0">{{ food.count }}</span>
-      <i class="icon-add_circle icon" @click="addcount(food)"></i>
+      <span class="num" v-if="getCountById[food.name] > 0">{{ getCountById[food.name] }}</span>
+      <i class="icon-add_circle icon" @click="addcount"></i>
       <transition
         @before-enter="beforeEnter"
         @enter="enter"
@@ -15,26 +15,33 @@
     </div>
 </template>
 <script>
-import Vue from 'vue'
+import { mapMutations,mapGetters } from 'vuex'
 export default {
   name : 'carcontrol',
   props:["food"],
   data () {
     return {
-      flag:false
+      flag: false,
+      count: 1
     };
   },
+  computed:{
+    ...mapGetters(["getCountById"])
+
+  },
   methods:{
-    addcount(food){
-      this.flag = true
-      if(!food.count){
-        Vue.set(food,"count",1)
-      }else{
-        food.count++
+    ...mapMutations(["addFoodToCar","decreaseFoodFromCar","delFoodByCount"]),
+    addcount(){
+      let foodInfo = {
+        name: this.food.name,
+        price: this.food.price,
+        count: this.count
       }
+      this.addFoodToCar(foodInfo)
     },
-    decrease(food){
-      food.count--
+    decrease(){
+      this.decreaseFoodFromCar(this.food.name)
+      this.delFoodByCount()
     },
     beforeEnter(el){
       el.style.opacity = "1"

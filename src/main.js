@@ -14,11 +14,13 @@ Vue.filter("dataFomate",function (dataStr,pattern = "YYYY-MM-DD HH:MM:SS") {
 
 
 Vue.config.productionTip = false
+import store from './store'
 
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
   components: { App },
   router,
-  template: '<App/>'
+  template: '<App/>',
+  store
 })
